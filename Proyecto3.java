@@ -34,7 +34,7 @@ public class Proyecto3 {
 
 			calcularRepeticionesYOrden(currentLine);
 
-			repeticionesCadenaOriginal(listaEncadenada);
+			repeticionesCadenaOriginal();
 			String original = cadenaOriginal(currentLine);
 			if (noExiste(original, currentLine, listaEncadenada.peekLast()))
 				System.out.println("NO EXISTE");
@@ -105,13 +105,13 @@ public class Proyecto3 {
 	 * 
 	 * @param q
 	 */
-	private static void repeticionesCadenaOriginal(LinkedList<Character> l) {
+	private static void repeticionesCadenaOriginal() {
 		int indice = 0;
 
-		while (l.size() > indice) {
-			char caracter = l.get(indice);
+		while (listaEncadenada.size() > indice) {
+			char caracter = listaEncadenada.get(indice);
 
-			repeticionesOrginal.put(caracter, repeticiones.get(caracter) / (l.size() - indice));
+			repeticionesOrginal.put(caracter, repeticiones.get(caracter) / (listaEncadenada.size() - indice));
 
 			indice++;
 		}
