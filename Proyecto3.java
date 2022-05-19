@@ -3,19 +3,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Stack;
 
 public class Proyecto3 {
-	/**
-	 * Stack with the order in which a character is removed.
-	 */
-	private static Stack<Character> pila;
 
-	/**
-	 * "pila" reversed
-	 */
-	private static Queue<Character> cola;
+	private static LinkedList<Character> listaEncadenada;
 
 	/**
 	 * Repetitions per unique char in the encrypted string
@@ -33,33 +24,29 @@ public class Proyecto3 {
 		BufferedReader br = new BufferedReader(is);
 
 		int casosInteger = Integer.parseInt(br.readLine());
-		String currentLine = br.readLine();
 
 		// Por cada caso.
 		while (0 < casosInteger) {
-
-			pila = new Stack<Character>();
+			String currentLine = br.readLine();
 			repeticiones = new HashMap<>();
 			repeticionesOrginal = new HashMap<>();
-			cola = new LinkedList<>();
+			listaEncadenada = new LinkedList<>();
 
 			calcularRepeticionesYOrden(currentLine);
 
-			repeticionesCadenaOriginal(cola);
-
-			String original = cadenaOriginal(repeticionesOrginal, currentLine);
-			if (noExiste(original, currentLine, pila.peek()))
+			repeticionesCadenaOriginal(listaEncadenada);
+			String original = cadenaOriginal(currentLine);
+			if (noExiste(original, currentLine, listaEncadenada.peekLast()))
 				System.out.println("NO EXISTE");
 			else {
 				System.out.print(original);
 				System.out.print(" ");
 
-				for (int i = pila.size(); i > 0; i--) {
-					System.out.print(pila.pop());
+				for (int i = listaEncadenada.size(); i > 0; i--) {
+					System.out.print(listaEncadenada.removeLast());
 				}
 				System.out.println("");
 			}
-			currentLine = br.readLine();
 			casosInteger--;
 
 		}
@@ -73,7 +60,7 @@ public class Proyecto3 {
 	 * @param ingreso First removed char
 	 * @return
 	 */
-	private static String cadenaOriginal(HashMap<Character, Integer> h, String ingreso) {
+	private static String cadenaOriginal(String ingreso) {
 		String originalString = "";
 		HashMap<Character, Integer> hashPorLlenar = new HashMap<>();
 		int indice = 0;
@@ -81,7 +68,7 @@ public class Proyecto3 {
 		/**
 		 * Mientras no se tenga la misma cantidad de repeticiones por char
 		 */
-		while (!hashPorLlenar.equals(h) && indice < ingreso.length()) {
+		while (!hashPorLlenar.equals(repeticionesOrginal) && indice < ingreso.length()) {
 			char currentChar = ingreso.charAt(indice);
 			if (!hashPorLlenar.containsKey(currentChar)) {
 				hashPorLlenar.put(currentChar, 1);
@@ -118,15 +105,15 @@ public class Proyecto3 {
 	 * 
 	 * @param q
 	 */
-	private static void repeticionesCadenaOriginal(Queue<Character> q) {
-		int sizeCola = q.size();
+	private static void repeticionesCadenaOriginal(LinkedList<Character> l) {
+		int indice = 0;
 
-		while (sizeCola > 0) {
-			char caracter = q.remove();
+		while (l.size() > indice) {
+			char caracter = l.get(indice);
 
-			repeticionesOrginal.put(caracter, repeticiones.get(caracter) / sizeCola);
+			repeticionesOrginal.put(caracter, repeticiones.get(caracter) / (l.size() - indice));
 
-			sizeCola--;
+			indice++;
 		}
 	}
 
@@ -139,8 +126,8 @@ public class Proyecto3 {
 		for (int i = cadena.length() - 1; i >= 0; i--) {
 			char currentChar = cadena.charAt(i);
 			if (!repeticiones.containsKey(currentChar)) {
-				pila.add(currentChar);
-				cola.add(currentChar);
+
+				listaEncadenada.add(currentChar);
 				repeticiones.put(currentChar, 1);
 			} else {
 				int numRepeticionesCaracter = repeticiones.get(currentChar);
@@ -148,4 +135,5 @@ public class Proyecto3 {
 			}
 		}
 	}
+
 }
