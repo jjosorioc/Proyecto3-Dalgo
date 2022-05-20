@@ -1,13 +1,15 @@
 from random import choice
 import random
 import string
+
+CASOS = 100000
 def crearPruebas():
 
-    f = open("2000.in", "w+")
-    f.write("2000\n")
-    o = open("2000.out", "w+")
+    f = open("in.in", "w+")
+    f.write(repr(CASOS)+"\n")
+    o = open("out.out", "w+")
     # cantidad casos
-    for i in range(0, 2000):
+    for i in range(0, CASOS):
         cadenaOriginal = "".join(random.choices(string.ascii_lowercase, k=random.randint(1, 100)))
         o.write(cadenaOriginal+ " ")
         newWord = cadenaOriginal
