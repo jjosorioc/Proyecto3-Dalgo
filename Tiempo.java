@@ -36,7 +36,7 @@ public class Tiempo {
 
 			repeticionesCadenaOriginal();
 			String original = cadenaOriginal(currentLine);
-			if (noExiste(original, currentLine, listaEncadenada.peekLast()))
+			if (!existe(original, currentLine, listaEncadenada.peekLast()))
 				System.out.println("NO EXISTE");
 			else {
 				System.out.print(original);
@@ -95,10 +95,21 @@ public class Tiempo {
 	 * @param letra
 	 * @return
 	 */
-	private static boolean noExiste(String original, String encriptada, char letra) {
-		String sinLetra = original + original.replaceAll(Character.toString(letra), "");
+	private static boolean existe(String original, String encriptada, char letra) {
+		/**
+		 * sinLetra is the encrypted string the string based on the order in which its
+		 * characters where removed
+		 */
+		StringBuilder sinLetra = new StringBuilder(encriptada.length());
 
-		return !encriptada.regionMatches(0, sinLetra, 0, sinLetra.length());
+		sinLetra.append(original);
+
+		for (int i = listaEncadenada.size() - 1; i >= 0; i--) {
+
+			original = original.replaceAll(Character.toString(listaEncadenada.get(i)), "");
+			sinLetra.append(original);
+		}
+		return encriptada.equals(sinLetra.toString());
 	}
 
 	/**
