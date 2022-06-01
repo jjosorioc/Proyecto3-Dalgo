@@ -4,7 +4,7 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.LinkedList;
 
-public class Proyecto3 {
+public class ProblemaP3 {
 
 	private static LinkedList<Character> listaEncadenada;
 
