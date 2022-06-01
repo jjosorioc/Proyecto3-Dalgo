@@ -36,7 +36,7 @@ public class Tiempo {
 
 			repeticionesCadenaOriginal();
 			String original = cadenaOriginal(currentLine);
-			if (!existe(original, currentLine, listaEncadenada.peekLast()))
+			if (!existe(original, currentLine))
 				System.out.println("NO EXISTE");
 			else {
 				System.out.print(original);
@@ -95,7 +95,7 @@ public class Tiempo {
 	 * @param letra
 	 * @return
 	 */
-	private static boolean existe(String original, String encriptada, char letra) {
+	private static boolean existe(String original, String encriptada) {
 		/**
 		 * sinLetra is the encrypted string the string based on the order in which its
 		 * characters where removed
