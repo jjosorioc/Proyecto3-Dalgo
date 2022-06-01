@@ -1,12 +1,12 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 
 public class Tiempo {
 
-	private static LinkedList<Character> listaEncadenada;
+	private static ArrayList<Character> listaArrayList;
 
 	/**
 	 * Repetitions per unique char in the encrypted string
@@ -30,7 +30,7 @@ public class Tiempo {
 			String currentLine = br.readLine();
 			repeticiones = new HashMap<>();
 			repeticionesOrginal = new HashMap<>();
-			listaEncadenada = new LinkedList<>();
+			listaArrayList = new ArrayList<>();
 
 			calcularRepeticionesYOrden(currentLine);
 
@@ -42,8 +42,8 @@ public class Tiempo {
 				System.out.print(original);
 				System.out.print(" ");
 
-				for (int i = listaEncadenada.size(); i > 0; i--) {
-					System.out.print(listaEncadenada.removeLast());
+				for (int i = listaArrayList.size() - 1; i >= 0; i--) {
+					System.out.print(listaArrayList.get(i));
 				}
 				System.out.println("");
 			}
@@ -104,9 +104,9 @@ public class Tiempo {
 
 		sinLetra.append(original);
 
-		for (int i = listaEncadenada.size() - 1; i >= 0; i--) {
+		for (int i = listaArrayList.size() - 1; i >= 0; i--) {
 
-			original = original.replaceAll(Character.toString(listaEncadenada.get(i)), "");
+			original = original.replaceAll(Character.toString(listaArrayList.get(i)), "");
 			sinLetra.append(original);
 		}
 		return encriptada.equals(sinLetra.toString());
@@ -120,10 +120,10 @@ public class Tiempo {
 	private static void repeticionesCadenaOriginal() {
 		int indice = 0;
 
-		while (listaEncadenada.size() > indice) {
-			char caracter = listaEncadenada.get(indice);
+		while (listaArrayList.size() > indice) {
+			char caracter = listaArrayList.get(indice);
 
-			repeticionesOrginal.put(caracter, repeticiones.get(caracter) / (listaEncadenada.size() - indice));
+			repeticionesOrginal.put(caracter, repeticiones.get(caracter) / (listaArrayList.size() - indice));
 
 			indice++;
 		}
@@ -139,7 +139,7 @@ public class Tiempo {
 			char currentChar = cadena.charAt(i);
 			if (!repeticiones.containsKey(currentChar)) {
 
-				listaEncadenada.add(currentChar);
+				listaArrayList.add(currentChar);
 				repeticiones.put(currentChar, 1);
 			} else {
 				int numRepeticionesCaracter = repeticiones.get(currentChar);
