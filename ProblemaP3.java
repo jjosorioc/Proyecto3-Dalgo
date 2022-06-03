@@ -1,3 +1,10 @@
+/*
+ * Juan José Osorio – 202021720 
+ * Esteban González Rúales – 202021225
+ * Mariana Díaz – 202020993
+ *
+ */
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
